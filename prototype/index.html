@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header__title">Task Management App</h1>
+  </header>
+
+  <!-- Board -->
+  <main class="board">
+    <div class="column" data-status="todo">
+      <div class="column__header">
+        <span class="column__title">未着手</span>
+        <span class="column__count badge">0</span>
+        <select class="column__sort" data-status="todo">
+          <option value="">並び替え</option>
+          <option value="priority">優先度順</option>
+          <option value="due_date">期日順</option>
+        </select>
+      </div>
+      <div class="column__cards" data-status="todo"></div>
+      <button class="btn-add-card" data-status="todo">+ カードを追加</button>
+    </div>
+
+    <div class="column" data-status="in_progress">
+      <div class="column__header">
+        <span class="column__title">作業中</span>
+        <span class="column__count badge">0</span>
+        <select class="column__sort" data-status="in_progress">
+          <option value="">並び替え</option>
+          <option value="priority">優先度順</option>
+          <option value="due_date">期日順</option>
+        </select>
+      </div>
+      <div class="column__cards" data-status="in_progress"></div>
+      <button class="btn-add-card" data-status="in_progress">+ カードを追加</button>
+    </div>
+
+    <div class="column" data-status="done">
+      <div class="column__header">
+        <span class="column__title">完了</span>
+        <span class="column__count badge">0</span>
+        <select class="column__sort" data-status="done">
+          <option value="">並び替え</option>
+          <option value="priority">優先度順</option>
+          <option value="due_date">期日順</option>
+        </select>
+      </div>
+      <div class="column__cards" data-status="done"></div>
+      <button class="btn-add-card" data-status="done">+ カードを追加</button>
+    </div>
+  </main>
+
+  <!-- Card Modal -->
+  <div class="modal-overlay" id="card-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-title">カードを追加</h2>
+        <button class="modal__close" id="modal-close" aria-label="閉じる">✕</button>
+      </div>
+      <form id="card-form" novalidate>
+        <div class="form-group">
+          <label for="field-title">タイトル <span class="required">*</span></label>
+          <input type="text" id="field-title" placeholder="タスクのタイトルを入力" autocomplete="off">
+          <p class="form-error" id="title-error" hidden>タイトルを入力してください</p>
+        </div>
+        <div class="form-group">
+          <label for="field-desc">説明</label>
+          <textarea id="field-desc" rows="3" placeholder="説明を入力（任意）"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="field-due">期日</label>
+            <input type="date" id="field-due">
+          </div>
+          <div class="form-group">
+            <label for="field-priority">優先度</label>
+            <select id="field-priority">
+              <option value="high">高</option>
+              <option value="medium" selected>中</option>
+              <option value="low">低</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--secondary" id="modal-cancel">キャンセル</button>
+          <button type="submit" class="btn btn--primary" id="modal-submit">追加</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Dialog -->
+  <div class="modal-overlay" id="delete-modal" hidden>
+    <div class="modal modal--sm" role="dialog" aria-modal="true">
+      <div class="modal__header">
+        <h2 class="modal__title">削除の確認</h2>
+        <button class="modal__close" id="delete-modal-close" aria-label="閉じる">✕</button>
+      </div>
+      <p class="delete-message" id="delete-message"></p>
+      <p class="delete-warning">この操作は元に戻せません。</p>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--secondary" id="delete-cancel">キャンセル</button>
+        <button type="button" class="btn btn--danger" id="delete-confirm">削除</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
